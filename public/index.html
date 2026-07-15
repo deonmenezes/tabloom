@@ -14,21 +14,22 @@
   </head>
   <body>
     <a class="skip-link" href="#app">Skip to app</a>
-    <header class="site-header">
-      <a class="brand" href="/" aria-label="Tabloom home">
-        <span class="brand-mark" aria-hidden="true">T</span>
-        <span>Tabloom</span>
-      </a>
-      <span class="local-pill">Local-first · no account</span>
-    </header>
+    <header class="site-header"><a class="brand" href="/" aria-label="Tabloom home"><span class="brand-mark" aria-hidden="true">T</span><span>Tabloom</span></a><span class="local-pill">Local-first · no account</span></header>
     <main id="app">
       <section class="hero">
-        <p class="eyebrow">Action surface mapper</p>
-        <h1>Weave every dashboard action into an <em>agent-ready path.</em></h1>
-        <p class="lede">Inventory product operations, see where UI-only work is trapped, and plan API, CLI, and MCP coverage.</p>
-        <button class="primary" type="button" disabled>Workspace loading…</button>
+        <div><p class="eyebrow">Action surface mapper</p><h1>Weave every dashboard action into an <em>agent-ready path.</em></h1><p class="lede">Inventory product operations, expose UI-only gaps, and plan API, CLI, and MCP coverage. Everything stays in your browser.</p><button class="primary" id="hero-add" type="button">Map an operation <span aria-hidden="true">↗</span></button></div>
+        <aside class="hero-card" aria-label="Product principle"><span class="signal-pulse" aria-hidden="true"></span><p>“If a person can click it, an agent should have a safe, documented path to do it.”</p><small>Tabloom principle 01</small></aside>
+      </section>
+      <section class="workspace" aria-labelledby="workspace-title">
+        <div class="workspace-heading"><div><p class="eyebrow">Local workspace</p><h2 id="workspace-title">Action coverage</h2></div><div class="heading-actions"><details class="export-menu"><summary>Export</summary><div><button id="export-json" type="button">JSON map</button><button id="export-markdown" type="button">Markdown table</button><button id="reset-demo" type="button">Restore demo</button></div></details><button class="primary" id="add-operation" type="button">+ Add operation</button></div></div>
+        <div class="summary-grid"><article class="coverage-card"><div id="coverage-ring" class="coverage-ring" style="--progress: 0deg"><span id="coverage-value">0%</span></div><div><strong>Surface coverage</strong><p>Across UI, API, CLI, and MCP paths</p></div></article><article><span id="total-count" class="stat-value">0</span><p>mapped operations</p></article><article><span id="gap-count" class="stat-value amber">0</span><p>dashboard-only gaps</p></article><article><span id="ready-count" class="stat-value mint">0</span><p>with a headless path</p></article></div>
+        <div class="toolbar"><div class="filter-group" id="filters" aria-label="Filter operations"><button type="button" data-filter="all" aria-pressed="true">All</button><button type="button" data-filter="gaps" aria-pressed="false">UI trapped</button><button type="button" data-filter="ready" aria-pressed="false">Headless ready</button></div><label class="search-field"><span class="sr-only">Search operations</span><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search operation or path…" autocomplete="off" /></label></div>
+        <div class="matrix-labels" aria-hidden="true"><span>Operation</span><div><span>UI</span><span>API</span><span>CLI</span><span>MCP</span></div><span>Coverage</span></div>
+        <div id="operation-list" class="operation-list" aria-live="polite"></div>
       </section>
     </main>
-    <script type="module" src="/app.js"></script>
+    <dialog id="operation-dialog" aria-labelledby="dialog-title"><form id="operation-form"><div class="dialog-heading"><div><p class="eyebrow">Surface thread</p><h2 id="dialog-title">Add an operation</h2></div><button class="close-button" id="close-dialog" type="button" aria-label="Close">×</button></div><input type="hidden" name="id" /><div class="form-grid"><label class="span-2">Operation name<input name="name" required maxlength="80" placeholder="e.g. Rotate a signing key" /></label><label>Product area<input name="area" maxlength="50" placeholder="Security" /></label><label>Risk<select name="risk"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option></select></label><label>UI route<input name="ui" maxlength="140" placeholder="/settings/keys" /></label><label>API endpoint<input name="api" maxlength="140" placeholder="POST /v1/keys/rotate" /></label><label>CLI command<input name="cli" maxlength="140" placeholder="acme keys rotate" /></label><label>MCP tool<input name="mcp" maxlength="140" placeholder="keys.rotate" /></label></div><p class="form-note">Blank paths are useful: Tabloom highlights what still needs a safe interface.</p><div class="dialog-actions"><button class="secondary" id="cancel-dialog" type="button">Cancel</button><button class="primary" type="submit">Save operation</button></div></form></dialog>
+    <div id="toast" class="toast" role="status" hidden></div>
+    <script type="module" src="/runtime.js"></script>
   </body>
 </html>
